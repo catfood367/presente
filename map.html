@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div>
+        <img class="island" id="island1" src="island.webp" alt="">
+        <img class="island" id="island2" src="islan2.png" alt="">
+        <img class="island" id="island3" src="island2.webp" alt="">
+        <img class="island" id="island4" src="island3.webp" alt="">
+        <img class="island" id="island5" src="island4.png" alt="">
+        <img class="island" id="island6" src="island4.png" alt="">
+
+    
+        <img id="boat" src="sail.gif" alt="">
+        <img id="rain" src="rain.gif" alt="">
+    </div>
+       
+
+    <div class="dialog" id="dialog1">
+        <img id="first" src="first.jpeg" alt="">
+    </div>
+
+    <div class="dialog" id="dialog2">
+        <div id="inputdiv1">
+            <h1>me apaixonei...</h1>
+            <input id="input1" type="text">
+        </div>
+        <img id="second" src="second.jpeg" alt="">
+    </div>
+
+    <div class="dialog" id="dialog3">
+        <div id="inputdiv2">
+            <h1>Texto em ênfase na carta </h1>
+            <input id="input2" type="text">
+        </div>
+        <img id="third" src="third.jpeg" alt="">
+    </div>
+
+    <div class="dialog" id="dialog4">
+        <div id="inputdiv3">
+            <img id="xux" src="chuchu.png" alt="">
+            <input id="input3" type="text">
+        </div>
+        <img id="fourth" src="fourth.jpeg" alt="">
+    </div>
+
+    <div class="dialog" id="dialog5">
+        <div id="inputdiv4">
+            <audio id="audio" src="morse.wav" autoplay ></audio>
+        
+            <input id="input4" type="text">
+        </div>
+        <img id="fifth" src="fifth.jpeg" alt="">
+    </div>
+
+    <div class="dialog" id="dialog6">
+        <div id="inputdiv">
+            <h1>A senha está escondida no poema</h1>
+            <input id="input6" type="text">
+        </div>
+    
+        <div id="camera">
+            <video id="video" width="640" height="480" autoplay></video>
+
+            <!-- Botão para tirar a foto -->
+     
+            
+            <!-- Área para exibir a foto tirada -->
+            <canvas id="canvas" width="640" height="480" style="display:none;"></canvas>
+            <img id="photo" alt="Foto tirada" style="display:none;" />
+            <button id="captureButton">Tirar Foto</button>
+        </div>
+
+        <div id="final">
+            <img src="all.png" alt="">
+            <img id="tirada" alt="">
+        </div>
+    </div>
+</body>
+</html>
+
+<style>
+    body {
+        overflow: hidden;
+        background-image: url("ocean.jpg");
+        background-size: cover;
+    }
+    
+    #boat {
+        width: 100px;
+        position: absolute;
+    }
+
+    .island {
+        width: 250px;
+        margin: 200px;
+    }
+
+    #xux {
+        display: block;
+    }
+
+    #first {
+        transform: rotate(90deg);
+        display: block;
+    }
+
+    #second {
+        width: 400px;
+    }
+
+    #captureButton {
+        margin-top: 20px;
+    }
+
+
+    .dialog {
+        background-color: black;
+        position: fixed;
+        display: none;
+        align-items: center;
+        justify-content: center;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 100;
+        color: white;
+        font-size: 24;
+    }
+
+    .dialog div {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+    }
+
+    #tirada {
+        width: 430px;
+        position: absolute;
+        bottom: -30px;
+        transform: rotate(-13deg);
+    }
+
+    #final {
+        display: none;
+        align-items: center;
+        justify-content: center;
+    }
+
+    #final img{
+        display: block;
+    }
+
+    .dialog img {
+        display: none;
+    }
+
+
+    .dialog div input {
+        font-size: 24px;
+    }
+
+    #camera{
+        display: none;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+    .kraken {
+        width: 250px;
+        position: absolute;
+        opacity: 50%;
+    }
+
+    #island5{
+        left: 1100px;
+        top: 200px;
+    }
+
+    #island1{
+        left: 100px;
+        top: 30px;
+    }
+
+    #island2{
+        left: 500px;
+        top: 100px;
+    }
+
+    #island4{
+        left: 800px;
+        top: 500px;
+    }
+
+    #island6{
+        left: 1600px;
+        top: 300px;
+    }
+
+
+    #island3{
+        left: 200px;
+        top: 600px;
+    }
+    
+
+    .island {
+    position: absolute; /* Allows movement across the screen */
+
+    transform: translate(-50%, -50%); /* Center the boat */
+    animation: float 3s ease-in-out infinite; /* Floating animation */
+    }
+
+    /* Keyframes for the floating effect */
+    @keyframes float {
+        0%, 100% {
+            transform: translate(-50%, -50%) translateY(0); /* Neutral position */
+        }
+        50% {
+            transform: translate(-50%, -50%) translateY(-10px); /* Floating up */
+        }
+    }
+
+
+    #rain {
+        width: 100vw;
+        height: 100vh;
+        z-index: 100;
+        opacity: 10%;
+        transform: rotate(180deg);
+        background-color: rgb(0, 0, 0);
+    }
+    
+</style>
+
+<script>
+function setupKeyboardMovement() {
+    const elem = document.getElementById('boat');
+    const island1 = document.getElementById('island1');
+    const island2 = document.getElementById('island2');
+    const island3 = document.getElementById('island3');
+    const island4 = document.getElementById('island4');
+    const island5 = document.getElementById('island5');
+
+    let posX = 0; // Horizontal position
+    let posY = 0; // Vertical position
+    const step = 2; // Number of pixels to move per frame
+    const keysPressed = {}; // Object to track pressed keys
+    let dialog = 6
+
+    // Listen for keydown events to track pressed keys
+    document.addEventListener('keydown', (event) => {
+        keysPressed[event.key] = true;
+    });
+
+    // Listen for keyup events to stop tracking keys
+    document.addEventListener('keyup', (event) => {
+        keysPressed[event.key] = false;
+    });
+
+            let turn = ""
+            let vector = 1
+    // Update the position of the element in an animation loop
+    function updatePosition() {
+
+        if (keysPressed['ArrowUp']) {
+            posY -= step;
+        }
+        if (keysPressed['ArrowDown']) {
+            posY += step;
+        }
+        if (keysPressed['ArrowLeft']) {
+            turn = 'rotateY(180deg)';
+            vector = -1
+            posX -= step;
+        }
+        if (keysPressed['ArrowRight']) {
+            turn = "";
+            vector = 1
+            posX += step;
+        }
+
+        if (keysPressed['Escape']) { 
+            if (dialog === 6) {
+                return
+            }
+            let ele = document.getElementsByClassName('dialog');
+            for (let index = 0; index < ele.length; index++) {
+                ele[index].style.display = "none"
+            }
+            
+            posX += 100
+            keysPressed['Escape'] = null
+
+     }
+
+        if (keysPressed['Enter']) { 
+            if (dialog === 2) {
+                const input = document.getElementById("input1")
+                if (input.value.toLowerCase() === "por ela") {
+                    const inputdiv =  document.getElementById("inputdiv1")
+                    inputdiv.style.display = "none"
+
+                     const second =  document.getElementById("second")
+                    second.style.display = "flex"
+                }
+            }
+
+            if (dialog === 3) {
+                const input = document.getElementById("input2")
+                if (input.value.toLowerCase() === "a mulher mais bonita do mundo") {
+                    const inputdiv =  document.getElementById("inputdiv2")
+                    inputdiv.style.display = "none"
+
+                     const third =  document.getElementById("third")
+                     third.style.display = "flex"
+                }
+            }
+
+            if (dialog === 4) {
+                const input = document.getElementById("input3")
+                if (input.value.toLowerCase() === "xuxu") {
+                    const inputdiv =  document.getElementById("inputdiv3")
+    
+                    inputdiv.style.display = "none"
+
+        
+
+                     const fourth =  document.getElementById("fourth")
+                    fourth.style.display = "flex"
+                }
+            }
+
+            if (dialog === 5) {
+                const input = document.getElementById("input4")
+                const audio = document.getElementById("audio")
+                audio.pause()
+                if (input.value.toLowerCase() === "meu mundo") {
+                    const inputdiv =  document.getElementById("inputdiv4")
+                    inputdiv.style.display = "none"
+
+                     const fifth =  document.getElementById("fifth")
+                     fifth.style.display = "flex"
+                }
+            }
+            if (dialog === 6) {
+                const input = document.getElementById("input6")
+                if (input.value.toLowerCase() === "eu te amo") {
+                    const inputdiv =  document.getElementById("inputdiv")
+                    inputdiv.style.display = "none"
+
+                     const camera =  document.getElementById("camera")
+                    camera.style.display = "flex"
+                }
+            }
+            keysPressed['Enter'] = null
+        }
+
+        // Update the element's position
+        elem.style.transform = turn + " " + `translate(${vector * posX}px, ${posY}px)`;
+
+        // Keep the loop running
+        requestAnimationFrame(updatePosition);
+
+        const distance = 20
+        const size = 100
+
+        if (isImageInCenter(elem, island1)) {
+            dialog = 1
+            openDialog("1")
+        }
+
+        if (isImageInCenter(elem, island2)) {
+            dialog = 2
+            openDialog("2")
+        }
+
+        if (isImageInCenter(elem, island3)) {
+            dialog = 3
+            openDialog("3")
+        }
+
+        if (isImageInCenter(elem, island4)) {
+            dialog = 4
+            openDialog("4")
+        }
+
+        if (isImageInCenter(elem, island5)) {
+            dialog = 5
+            openDialog("5")
+        }
+
+        if (isImageInCenter(elem, island6)) {
+            dialog = 6
+            openDialog("6")
+        }
+    
+    }
+    
+
+    // Start the animation loop
+    updatePosition();
+}
+
+
+
+// Call the function to set up keyboard controls
+setupKeyboardMovement();
+function openDialog(dialog) {
+  
+    if (dialog === "1") {
+            const dialogDiv = document.getElementById("dialog1")
+            dialogDiv.style.display = "flex"
+    }
+
+    if (dialog === "2") {
+            const dialogDiv = document.getElementById("dialog2")
+            dialogDiv.style.display = "flex"
+    }
+
+    if (dialog === "3") {
+            const dialogDiv = document.getElementById("dialog3")
+            dialogDiv.style.display = "flex"
+    }
+
+
+    if (dialog === "4") {
+            const dialogDiv = document.getElementById("dialog4")
+            dialogDiv.style.display = "flex"
+
+    }
+
+    if (dialog === "5") {
+            const dialogDiv = document.getElementById("dialog5")
+            dialogDiv.style.display = "flex"
+            const audio = document.getElementById("audio")
+            audio.play()
+    }
+
+    if (dialog === "6") {
+            const dialogDiv = document.getElementById("dialog6")
+            dialogDiv.style.display = "flex"
+    }
+}
+
+    // Obtém elementos da página
+    const video = document.getElementById('video');
+    const captureButton = document.getElementById('captureButton');
+    const canvas = document.getElementById('canvas');
+    const photo = document.getElementById('photo');
+    
+    // Acessa a câmera
+    navigator.mediaDevices.getUserMedia({ video: true })
+      .then((stream) => {
+        video.srcObject = stream;
+      })
+      .catch((err) => {
+        console.error('Erro ao acessar a câmera: ', err);
+      });
+
+    // Função para tirar a foto
+    captureButton.addEventListener('click', () => {
+      const context = canvas.getContext('2d');
+      context.drawImage(video, 0, 0, canvas.width, canvas.height);
+
+      // Exibe a foto no elemento <img> e oculta o vídeo
+      const imageUrl = canvas.toDataURL('image/png');
+      photo.src = imageUrl;
+      const tirada = document.getElementById("tirada")
+      tirada.src = imageUrl
+      photo.style.display = 'block';  // Mostra a foto
+      video.style.display = 'none';  // Oculta o vídeo
+      const camera = document.getElementById("camera");
+      camera.style.display = "none"
+      const final = document.getElementById('final');
+      final.style.display = "flex"
+      const dialog6 = document.getElementById('dialog6');
+      dialog6.style.backgroundColor = "white"
+      
+    });
+
+    function isImageInCenter(innerImage, outerImage) {
+    // Get the bounding rectangle of both images
+    const innerRect = innerImage.getBoundingClientRect();
+    const outerRect = outerImage.getBoundingClientRect();
+    
+    // Calculate the center of the outer image
+    const outerCenterX = outerRect.left + outerRect.width / 2;
+    const outerCenterY = outerRect.top + outerRect.height / 2;
+    
+    // Check if the inner image is centered
+    const innerCenterX = innerRect.left + innerRect.width / 2;
+    const innerCenterY = innerRect.top + innerRect.height / 2;
+    
+    // Define a margin for how close to the center you want to consider "in the middle"
+    const margin = 70;  // You can adjust this margin as needed
+    
+    const isCenteredX = Math.abs(innerCenterX - outerCenterX) <= margin;
+    const isCenteredY = Math.abs(innerCenterY - outerCenterY) <= margin;
+    
+    // If the image is close enough to the center both horizontally and vertically, return true
+    return isCenteredX && isCenteredY;
+}
+
+</script>
